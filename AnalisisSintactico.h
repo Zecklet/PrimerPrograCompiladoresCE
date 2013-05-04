@@ -30,8 +30,10 @@ private:
     TablaSimbolos * _tablaDeSimbolos;
     QList<QString> * _listaLineas;
     QList<QList<QString>*> * _listaDeListasDePalabras;
+    QList<QString> * _lineasSinEspacios;
     int _posicionLineaActual;
     int _estoyEnTipoVariable; //1:estoy en variable, 2:estoy en etiqueta
+    int * _listaPosiciones; 
     bool _estoyEnExpresion;
     void ProduccionPrograma();
     void ProduccionListaVariables();
@@ -57,6 +59,7 @@ private:
     bool RevisarParentesis(const char * pExpresion);
     bool TerminalNUM(char * pLinea);
     void EscribirOutputSintactico();
+    void SacarIndicesPosiciones();
 };
 
 #endif	/* ANALISISSINTACTICO_H */

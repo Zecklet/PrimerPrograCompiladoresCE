@@ -8,6 +8,8 @@
 #include <qstring.h>
 
 #include "moduloErrores.h"
+#include "ManejoXML.h"
+#include "Constantes.h"
 
 moduloErrores::moduloErrores() {
     this->_numeroErrores = 0;
@@ -128,6 +130,7 @@ void moduloErrores::RegistrarErrorSintacticoOperadorSuma(QString p_nombreVariabl
 
 void moduloErrores::RegistrarErrorSintacticoOperadorRacional(QString p_nombreVariable, QString p_expresion) {
     QString m_error = "ErrorOperadorRacional: ";
+    
     m_error.append(p_nombreVariable);
     m_error.append(":");
     m_error.append(p_expresion);
@@ -156,17 +159,26 @@ void moduloErrores::RegistrarErrorSintacticoVariableNoValida(QString p_nombreVar
     this->_numeroErrores++;
 }
 
-void moduloErrores::RegistrarErrorSintacticoAccionInvalida(QString p_nombreVariable) {
+void moduloErrores::RegistrarErrorSintacticoAccionInvalida(int p_posicion,QString p_expresion) {
+    this->_numeroErrores++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorAccionInvalida,_numeroErrores,p_posicion,p_expresion.toStdString().c_str());
     QString m_error = "AccionInvalida: ";
-    m_error.append(p_nombreVariable);
+    m_error.append(p_expresion);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearNodoTexto(m_textoError);
+    _archivoXML->DevolverseAPadre();
+    
 }
 
 void moduloErrores::CrearNuevoRegistroErrores() {
     _archivoErrores = new ManejoDeArchivosExternos;
     _archivoErrores->CrearArchivo("MóduloErrores.txt");
+    _archivoXML = new ManejoXML();
+    _archivoXML->CrearNuevoArchivoXML("ModuloErrores");
+    
 }
 
 void moduloErrores::AgregarMasErroresRegistro() {
@@ -176,6 +188,7 @@ void moduloErrores::AgregarMasErroresRegistro() {
 
 void moduloErrores::RegistrarTerminarEscritura() {
     _archivoErrores->CerrarArchivoEscritura();
+    _archivoXML->GuardarDocumento("MóduloErrores.xml");
 }
 
 int moduloErrores::ObtenerNumeroDeErrores() {

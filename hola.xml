@@ -1,0 +1,6 @@
+<raiz>
+ <nodoElemento nombre="ney" nombre2="ney2">
+  <nodoElemento2>este es el texto 222222</nodoElemento2>
+  <nodoElemento3>este es el texto 3333</nodoElemento3>
+ </nodoElemento>
+</raiz>

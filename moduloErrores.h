@@ -11,6 +11,7 @@
 #include "QString"
 #include "ManejoDeArchivosExternos.h"
 
+class ManejoXML;
 class moduloErrores {
 public:
     moduloErrores();
@@ -34,12 +35,13 @@ public:
     void RegistrarErrorSintacticoOperadorRacional(QString p_nombreVariable, QString p_expresion);
     void RegistrarErrorSintacticoVariableNoDeclarada(QString p_nombreVariable, QString p_expresion);
     void RegistrarErrorSintacticoVariableNoValida(QString p_nombreVariable, QString p_expresion);
-    void RegistrarErrorSintacticoAccionInvalida(QString p_nombreVariable);
+    void RegistrarErrorSintacticoAccionInvalida(int p_posicion,QString p_expresion);
     void RegistrarTerminarEscritura();
     
     
     int ObtenerNumeroDeErrores();
 private:
+    ManejoXML * _archivoXML;
     ManejoDeArchivosExternos * _archivoErrores;
     int _numeroErrores;
 };

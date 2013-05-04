@@ -11,6 +11,7 @@
       <itemPath>LeerImagenes.h</itemPath>
       <itemPath>Lexico.h</itemPath>
       <itemPath>ManejoDeArchivosExternos.h</itemPath>
+      <itemPath>ManejoXML.h</itemPath>
       <itemPath>TablaSimbolos.h</itemPath>
       <itemPath>moduloErrores.h</itemPath>
     </logicalFolder>
@@ -27,6 +28,7 @@
       <itemPath>LeerImagenes.cpp</itemPath>
       <itemPath>Lexico.cpp</itemPath>
       <itemPath>ManejoDeArchivosExternos.cpp</itemPath>
+      <itemPath>ManejoXML.cpp</itemPath>
       <itemPath>TablaSimbolos.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>moduloErrores.cpp</itemPath>
@@ -54,6 +56,12 @@
         <modules>core gui</modules>
       </qt>
       <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs QtXml`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs QtXmlPatterns`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="AnalisisSemantico.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -80,6 +88,10 @@
       <item path="ManejoDeArchivosExternos.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ManejoDeArchivosExternos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ManejoXML.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ManejoXML.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TablaSimbolos.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -140,6 +152,10 @@
       <item path="ManejoDeArchivosExternos.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ManejoDeArchivosExternos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ManejoXML.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ManejoXML.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TablaSimbolos.cpp" ex="false" tool="1" flavor2="0">
       </item>

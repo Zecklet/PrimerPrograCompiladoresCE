@@ -13,6 +13,7 @@
 #include "qdebug.h"
 #include "AnalisisSemantico.h"
 #include "moduloErrores.h"
+#include "ManejoXML.h"
 
 using namespace std;
 
@@ -21,7 +22,6 @@ int main(int argc, char *argv[]) {
     // Q_INIT_RESOURCE(resfile);
 
     QApplication app(argc, argv);
-    QList<QString> * prueba;
     QString xx = "hola mundo";
     QString y = xx.section("", 3, xx.length());
     qDebug() << y << "----------------";
@@ -35,6 +35,5 @@ int main(int argc, char *argv[]) {
     else{
         qDebug()<<"Errores Sintacticos";
     }
-
     return 0;
 }
