@@ -61,3 +61,6 @@ void TablaSimbolos::ImprimirTablaSimbolos(){
     }
     printf("---------------------------------------\n");
 }
+int TablaSimbolos::ObtenerNumeroUsos(QString p_nombreVariable){
+    return _numeroDeUsos->at(this->IndiceVariable(p_nombreVariable));
+}

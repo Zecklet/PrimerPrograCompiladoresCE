@@ -22,6 +22,7 @@ public:
     int AgregarUsoVariable(QString p_nombreVariable);
     int IndiceVariable(QString p_nombreVariable);
     void ImprimirTablaSimbolos();
+    int ObtenerNumeroUsos(QString p_nombreVariable);
 private:
 
 

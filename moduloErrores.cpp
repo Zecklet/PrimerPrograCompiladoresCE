@@ -10,7 +10,7 @@
 #include "moduloErrores.h"
 
 moduloErrores::moduloErrores() {
-
+    this->_numeroErrores = 0;
 }
 
 moduloErrores::moduloErrores(const moduloErrores& orig) {
@@ -19,7 +19,14 @@ moduloErrores::moduloErrores(const moduloErrores& orig) {
 moduloErrores::~moduloErrores() {
 }
 
-void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_linea,QString p_expresion) {
+void moduloErrores::RegistrarErrorSemanticoCarroApagado() {
+    QString m_error = "ErrorSimpreVerdad: Se intento mover el auto, pero se encuentra apagado";
+    m_error.append('\n');
+    _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
+}
+
+void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_linea, QString p_expresion) {
     QString m_error = "ErrorSimpreVerdad: ";
     m_error.append(p_expresion);
     m_error.append(":");
@@ -28,7 +35,7 @@ void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_linea,QString 
     _archivoErrores->EscribirLinea(m_error);
 }
 
-void moduloErrores::RegistrarErrorSemanticoNoSeUsa(QString p_linea,QString p_expresion) {
+void moduloErrores::RegistrarErrorSemanticoNoSeUsa(QString p_linea, QString p_expresion) {
     QString m_error = "ErrorNoSeUsa: ";
     m_error.append(p_expresion);
     m_error.append(":");
@@ -42,6 +49,7 @@ void moduloErrores::RegistrarErrorSintacticoHaySinoSinSi(QString p_nombreVariabl
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayIncioSi(QString p_nombreVariable) {
@@ -49,6 +57,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayIncioSi(QString p_nombreVariabl
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayIncioMientras(QString p_nombreVariable) {
@@ -56,6 +65,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayIncioMientras(QString p_nombreV
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayFinMientras(QString p_nombreVariable) {
@@ -63,6 +73,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayFinMientras(QString p_nombreVar
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayFinSi(QString p_nombreVariable) {
@@ -70,6 +81,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayFinSi(QString p_nombreVariable)
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayHaga(QString p_nombreVariable) {
@@ -77,6 +89,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayHaga(QString p_nombreVariable) 
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoNoHayEntonces(QString p_nombreVariable) {
@@ -84,6 +97,7 @@ void moduloErrores::RegistrarErrorSintacticoNoHayEntonces(QString p_nombreVariab
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoParentesisVacio(QString p_nombreVariable) {
@@ -91,6 +105,7 @@ void moduloErrores::RegistrarErrorSintacticoParentesisVacio(QString p_nombreVari
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoSobranParentesis(QString p_nombreVariable) {
@@ -98,6 +113,7 @@ void moduloErrores::RegistrarErrorSintacticoSobranParentesis(QString p_nombreVar
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoOperadorSuma(QString p_nombreVariable, QString p_expresion) {
@@ -107,6 +123,7 @@ void moduloErrores::RegistrarErrorSintacticoOperadorSuma(QString p_nombreVariabl
     m_error.append(p_expresion);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoOperadorRacional(QString p_nombreVariable, QString p_expresion) {
@@ -116,6 +133,7 @@ void moduloErrores::RegistrarErrorSintacticoOperadorRacional(QString p_nombreVar
     m_error.append(p_expresion);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoVariableNoDeclarada(QString p_nombreVariable, QString p_expresion) {
@@ -125,6 +143,7 @@ void moduloErrores::RegistrarErrorSintacticoVariableNoDeclarada(QString p_nombre
     m_error.append(p_expresion);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
 
 void moduloErrores::RegistrarErrorSintacticoVariableNoValida(QString p_nombreVariable, QString p_expresion) {
@@ -134,13 +153,17 @@ void moduloErrores::RegistrarErrorSintacticoVariableNoValida(QString p_nombreVar
     m_error.append(p_expresion);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
+
 void moduloErrores::RegistrarErrorSintacticoAccionInvalida(QString p_nombreVariable) {
     QString m_error = "AccionInvalida: ";
     m_error.append(p_nombreVariable);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
+    this->_numeroErrores++;
 }
+
 void moduloErrores::CrearNuevoRegistroErrores() {
     _archivoErrores = new ManejoDeArchivosExternos;
     _archivoErrores->CrearArchivo("MóduloErrores.txt");
@@ -153,4 +176,8 @@ void moduloErrores::AgregarMasErroresRegistro() {
 
 void moduloErrores::RegistrarTerminarEscritura() {
     _archivoErrores->CerrarArchivoEscritura();
+}
+
+int moduloErrores::ObtenerNumeroDeErrores() {
+    return this->_numeroErrores;
 }

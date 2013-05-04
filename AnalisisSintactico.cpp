@@ -91,8 +91,6 @@ void AnalisisSintactico::ProduccionListaDeclaraciones(int p_inicio, int p_final)
     _posicionLineaActual = p_inicio;
     int mNumeroDeCiclos = 0, mPilaFinales = 0;
     QString mPrimeraPalabra = _listaDeListasDePalabras->at(p_inicio)->at(0);
-    qDebug() << "LINEA ACTUALEMENTE ANALIZADA EN LAS DECLARACIONES" << _listaLineas->at(p_inicio);
-    qDebug() << "LINEA ACTUALEMENTE ANALIZADA EN LAS DECLARACIONES" << mPrimeraPalabra;
     if (mPrimeraPalabra == "si") {
         while (1) {
             mNumeroDeCiclos++;

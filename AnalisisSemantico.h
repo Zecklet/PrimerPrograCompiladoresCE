@@ -30,6 +30,7 @@ private:
     int * _listaLineasAEliminar;
     int _indiceLineaAEliminar;
     int _indiceLineaActual;
+    bool _estadoCarro; //true: encendido, false: apagado
     void RedireccionarLineas(QString p_formaInicio, QString p_formaFinal, int p_destinoSi);
     int EvaluarCondicionExpresion(QList<QString> * p_listaListaDePalabras,QString pListaPalabras);
     int BuscarVariables(QString pExpresion);
@@ -37,6 +38,8 @@ private:
     bool EvaluarOperadorRacional(char * pOperadorRacional, int pNumeroIzq, int pNumeroDer);
     void ValorarLineas(int pDestinoMientras, int pDestinoIf);
     void EliminarLineas(QString pFormaIncio, QString pFormaFinal);
+    void RevisarVariablesSinUso();
+    void EscribirOutputSemantico();
 };
 
 #endif	/* ANALISISSEMANTICO_H */

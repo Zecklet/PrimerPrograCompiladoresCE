@@ -18,7 +18,7 @@ public:
     virtual ~moduloErrores();
     void CrearNuevoRegistroErrores();
     void AgregarMasErroresRegistro();
-
+    void RegistrarErrorSemanticoCarroApagado();
     void RegistrarErrorSemanticoSimpreVerdad(QString p_linea, QString p_expresion);
     void RegistrarErrorSemanticoNoSeUsa(QString p_linea, QString p_expresion);
     void RegistrarErrorSintacticoHaySinoSinSi(QString p_nombreVariable);
@@ -36,6 +36,9 @@ public:
     void RegistrarErrorSintacticoVariableNoValida(QString p_nombreVariable, QString p_expresion);
     void RegistrarErrorSintacticoAccionInvalida(QString p_nombreVariable);
     void RegistrarTerminarEscritura();
+    
+    
+    int ObtenerNumeroDeErrores();
 private:
     ManejoDeArchivosExternos * _archivoErrores;
     int _numeroErrores;
