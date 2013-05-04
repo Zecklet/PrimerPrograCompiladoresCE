@@ -10,6 +10,7 @@
 
 #include "QList"
 #include "QString"
+#include "TablaSimbolos.h"
 
 class moduloErrores;
 class TablaSimbolos;
@@ -18,15 +19,24 @@ public:
     AnalisisSemantico();
     AnalisisSemantico(const AnalisisSemantico& orig);
     virtual ~AnalisisSemantico();
-    void InicializarDatos(moduloErrores * p_moduloErrores, moduloErrores * p_tablaSimbolos, QList<QString> * p_listaLineas,
+    void InicializarDatos(moduloErrores * p_moduloErrores, TablaSimbolos * p_tablaSimbolos, QList<QString> * p_listaLineas,
             QList<QList<QString>*> * p_listaDeListasDePalabras);
     void ComenzarAnalisis();
+private:
     moduloErrores * _moduloNotificacionErrores;
     TablaSimbolos * _tablaDeSimbolos;
     QList<QString> * _listaLineas;
     QList<QList<QString>*> * _listaDeListasDePalabras;
-private:
-
+    int * _listaLineasAEliminar;
+    int _indiceLineaAEliminar;
+    int _indiceLineaActual;
+    void RedireccionarLineas(QString p_formaInicio, QString p_formaFinal, int p_destinoSi);
+    int EvaluarCondicionExpresion(QList<QString> * p_listaListaDePalabras,QString pListaPalabras);
+    int BuscarVariables(QString pExpresion);
+    int EvaluarExpresionSinVariable(QString pLinea);
+    bool EvaluarOperadorRacional(char * pOperadorRacional, int pNumeroIzq, int pNumeroDer);
+    void ValorarLineas(int pDestinoMientras, int pDestinoIf);
+    void EliminarLineas(QString pFormaIncio, QString pFormaFinal);
 };
 
 #endif	/* ANALISISSEMANTICO_H */

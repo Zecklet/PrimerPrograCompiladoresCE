@@ -18,6 +18,7 @@ public:
     int HeuristicoIfSino(QList<QList<QString>*> * pListaLineas, int pLineaMenor, int pLineaMayor);
     bool VerificacionOperadoresRacionales(char p_caracter);
     bool VerificacionEsNumero(char pCaracter);
+    bool VerificarEsCaracter(char pCaracter);
 private:
 
 };

@@ -18,8 +18,9 @@ public:
     virtual ~moduloErrores();
     void CrearNuevoRegistroErrores();
     void AgregarMasErroresRegistro();
-    void RegistrarErrorSemanticoSimpreVerdad(QString p_nombreVariable);
-    void RegistrarErrorSemanticoNoSeUsa(QString p_nombreVariable);
+
+    void RegistrarErrorSemanticoSimpreVerdad(QString p_linea, QString p_expresion);
+    void RegistrarErrorSemanticoNoSeUsa(QString p_linea, QString p_expresion);
     void RegistrarErrorSintacticoHaySinoSinSi(QString p_nombreVariable);
     void RegistrarErrorSintacticoNoHayIncioSi(QString p_nombreVariable);
     void RegistrarErrorSintacticoNoHayIncioMientras(QString p_nombreVariable);

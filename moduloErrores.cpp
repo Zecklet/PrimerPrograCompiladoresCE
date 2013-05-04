@@ -19,16 +19,20 @@ moduloErrores::moduloErrores(const moduloErrores& orig) {
 moduloErrores::~moduloErrores() {
 }
 
-void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_nombreVariable) {
+void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_linea,QString p_expresion) {
     QString m_error = "ErrorSimpreVerdad: ";
-    m_error.append(p_nombreVariable);
+    m_error.append(p_expresion);
+    m_error.append(":");
+    m_error.append(p_linea);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
 }
 
-void moduloErrores::RegistrarErrorSemanticoNoSeUsa(QString p_nombreVariable) {
+void moduloErrores::RegistrarErrorSemanticoNoSeUsa(QString p_linea,QString p_expresion) {
     QString m_error = "ErrorNoSeUsa: ";
-    m_error.append(p_nombreVariable);
+    m_error.append(p_expresion);
+    m_error.append(":");
+    m_error.append(p_linea);
     m_error.append('\n');
     _archivoErrores->EscribirLinea(m_error);
 }

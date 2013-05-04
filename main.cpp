@@ -11,6 +11,7 @@
 #include "FuncionesString.h"
 #include "AnalisisSintactico.h"
 #include "qdebug.h"
+#include "AnalisisSemantico.h"
 
 using namespace std;
 
@@ -25,5 +26,8 @@ int main(int argc, char *argv[]) {
     qDebug()<<y<<"----------------";
     AnalisisSintactico x;
     x.ComenzarAnalisis();
+    AnalisisSemantico yy;
+    yy.InicializarDatos(x.ObtenerModuloErrores(),x.ObtenerTablaDeSimbolos(),x.ObtenerListaLineas(),x.ObtenerListaListasPalabras());
+    yy.ComenzarAnalisis();
     return 0;
 }

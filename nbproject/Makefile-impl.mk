@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Proyecto1
+PROJECTNAME=PrimerPrograCompiladoresCE
 
 # Active Configuration
 DEFAULTCONF=Debug

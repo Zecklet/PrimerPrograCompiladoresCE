@@ -20,6 +20,10 @@ public:
     AnalisisSintactico(const AnalisisSintactico& orig);
     virtual ~AnalisisSintactico();
     void ComenzarAnalisis();
+    moduloErrores * ObtenerModuloErrores();
+    TablaSimbolos * ObtenerTablaDeSimbolos();
+    QList<QString> * ObtenerListaLineas();
+    QList<QList<QString>*> * ObtenerListaListasPalabras();
 
 private:
     moduloErrores * _moduloNotificacionErrores;
@@ -53,11 +57,6 @@ private:
     bool RevisarParentesis(const char * pExpresion);
     bool TerminalNUM(char * pLinea);
     void EscribirOutputSintactico();
-    
-    moduloErrores * ObtenerModuloErrores();
-    TablaSimbolos * ObtenerTablaDeSimbolos();
-    QList<QString> * ObtenerListaLineas();
-    QList<QList<QString>*> * ObtenerListaListasPalabras();
 };
 
 #endif	/* ANALISISSINTACTICO_H */

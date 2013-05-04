@@ -91,3 +91,12 @@ bool FuncionesString::VerificacionEsNumero(char pCaracter) {
         return false;
     }
 }
+
+bool FuncionesString::VerificarEsCaracter(char pCaracter){
+    int mResultado = 0;
+    if ((pCaracter >= kAsciiCaracterMinusculaMenor && pCaracter <= kAsciiCaracterMinuscilaMayor) ||
+            (pCaracter >= kAsciiCaracterMayusculaMenor && pCaracter <= kAsciiCaracterMayusculaMayor)) {
+        mResultado = 1;
+    }
+    return mResultado;
+}
