@@ -50,14 +50,17 @@ void AnalisisSintactico::ProduccionPrograma() {
 void AnalisisSintactico::ProduccionListaVariables() {
     int m_indiceUltimoDeclarar = 0;
     for (int i = 0; i < _listaLineas->length(); i++) {
-        if (_listaDeListasDePalabras->at(i)->at(0) != "declarar") {
+        if (_listaLineas->at(i).trimmed().length()>1 && _listaDeListasDePalabras->at(i)->at(0) != "declarar") {
             m_indiceUltimoDeclarar = i;
             break;
         }
     }
     _estoyEnTipoVariable = 1;
     for (int j = 0; j < m_indiceUltimoDeclarar; j++) {
-        ProduccionTerminalID(_listaDeListasDePalabras->at(j)->at(1));
+        if(_listaLineas->at(j).trimmed().length()>1){
+                ProduccionTerminalID(_listaDeListasDePalabras->at(j)->at(1));
+        }
+        
     }
     _estoyEnTipoVariable = 0;
     _posicionLineaActual = m_indiceUltimoDeclarar;
