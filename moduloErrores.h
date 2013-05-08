@@ -12,38 +12,44 @@
 #include "ManejoDeArchivosExternos.h"
 
 class ManejoXML;
+
 class moduloErrores {
 public:
     moduloErrores();
     moduloErrores(const moduloErrores& orig);
     virtual ~moduloErrores();
-    void CrearNuevoRegistroErrores();
-    void AgregarMasErroresRegistro();
-    void RegistrarErrorSemanticoCarroApagado();
-    void RegistrarErrorSemanticoSimpreVerdad(QString p_linea, QString p_expresion);
-    void RegistrarErrorSemanticoNoSeUsa(QString p_linea, QString p_expresion);
-    void RegistrarErrorSintacticoHaySinoSinSi(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayIncioSi(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayIncioMientras(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayFinMientras(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayFinSi(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayHaga(QString p_nombreVariable);
-    void RegistrarErrorSintacticoNoHayEntonces(QString p_nombreVariable);
-    void RegistrarErrorSintacticoParentesisVacio(QString p_nombreVariable);
-    void RegistrarErrorSintacticoSobranParentesis(QString p_nombreVariable);
-    void RegistrarErrorSintacticoOperadorSuma(QString p_nombreVariable, QString p_expresion);
-    void RegistrarErrorSintacticoOperadorRacional(QString p_nombreVariable, QString p_expresion);
-    void RegistrarErrorSintacticoVariableNoDeclarada(QString p_nombreVariable, QString p_expresion);
-    void RegistrarErrorSintacticoVariableNoValida(QString p_nombreVariable, QString p_expresion);
-    void RegistrarErrorSintacticoAccionInvalida(int p_posicion,QString p_expresion);
+    void CrearNuevoRegistroErroresSintactico();
+    void CrearNuevoRegistroErroresSemantico();
+    void RegistrarErrorSemanticoCarroApagado(int p_posicion, QString p_expresion);
+    void RegistrarErrorSemanticoSimpreVerdad(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSemanticoNoSeUsa(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSintacticoHaySinoSinSi(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayIncioSi(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayIncioMientras(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayFinMientras(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayFinSi(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayHaga(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoNoHayEntonces(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoParentesisVacio(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoSobranParentesis(int p_posicion,QString p_expresion);
+    void RegistrarErrorSintacticoOperadorSuma(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSintacticoOperadorRacional(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSintacticoVariableNoDeclarada(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSintacticoVariableNoValida(int p_posicion, QString p_variable, QString p_expresion );
+    void RegistrarErrorSintacticoAccionInvalida(int p_posicion, QString p_expresion);
+    void RegistrarErrorSintacticoTerminalPerdido(int p_posicion, QString p_expresion);
+    void RegistrarErrorSintacticoExpresionVacia(int p_posicion, QString p_expresion);
+    void RegistrarErrorSintacticoIgualdadVacia(int p_posicion, QString p_expresion);
     void RegistrarTerminarEscritura();
     
-    
-    int ObtenerNumeroDeErrores();
+
+    int ObtenerNumeroDeErroresSemanticos();
+    int ObtenerNumeroDeErroresSintacticos();
 private:
     ManejoXML * _archivoXML;
     ManejoDeArchivosExternos * _archivoErrores;
-    int _numeroErrores;
+    int _numeroErroresSintacticos;
+    int _numeroErroresSemanticos;
 };
 
 #endif	/* MODULOERRORES_H */

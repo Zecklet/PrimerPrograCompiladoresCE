@@ -27,10 +27,11 @@ int main(int argc, char *argv[]) {
     qDebug() << y << "----------------";
     AnalisisSintactico x;
     x.ComenzarAnalisis();
-    if (x.ObtenerModuloErrores()->ObtenerNumeroDeErrores() == 0) {
+    if (x.ObtenerModuloErrores()->ObtenerNumeroDeErroresSintacticos() == 0) {
         AnalisisSemantico yy;
-        yy.InicializarDatos(x.ObtenerModuloErrores(), x.ObtenerTablaDeSimbolos(), x.ObtenerListaLineas(), x.ObtenerListaListasPalabras());
+        yy.InicializarDatos(x.ObtenerModuloErrores(), x.ObtenerTablaDeSimbolos(), x.ObtenerListaLineas(), x.ObtenerListaListasPalabras(), x.ObtenerListaPosiciones());
         yy.ComenzarAnalisis();
+        x.ObtenerTablaDeSimbolos()->EscribirTablaXML();
     }
     else{
         qDebug()<<"Errores Sintacticos";

@@ -20,7 +20,7 @@ public:
     AnalisisSemantico(const AnalisisSemantico& orig);
     virtual ~AnalisisSemantico();
     void InicializarDatos(moduloErrores * p_moduloErrores, TablaSimbolos * p_tablaSimbolos, QList<QString> * p_listaLineas,
-            QList<QList<QString>*> * p_listaDeListasDePalabras);
+            QList<QList<QString>*> * p_listaDeListasDePalabras,int * p_listaPosiciones);
     void ComenzarAnalisis();
 private:
     moduloErrores * _moduloNotificacionErrores;
@@ -28,6 +28,7 @@ private:
     QList<QString> * _listaLineas;
     QList<QList<QString>*> * _listaDeListasDePalabras;
     int * _listaLineasAEliminar;
+    int * _listaPosiciones;
     int _indiceLineaAEliminar;
     int _indiceLineaActual;
     bool _estadoCarro; //true: encendido, false: apagado

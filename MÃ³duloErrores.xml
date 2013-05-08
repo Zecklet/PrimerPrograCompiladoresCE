@@ -1,1 +1,8 @@
-<ModuloErrores/>
+<ModuloErrores>
+ <Sintatico/>
+ <Semantico>
+  <E exp="si1+22-20-2-(1!=(0==(54>60)))==1+4878787-4878707-80-1-4+4+(1==(1==(1==(1+2-2))))entonces" pos="79" text="Error SemÃ¡ntico #1, En la posiciÃ³n #79, se encuentra la declaraciÃ³n 'si1+22-20-2-(1!=(0==(54>60)))==1+4878787-4878707-80-1-4+4+(1==(1==(1==(1+2-2))))entonces', la cual contiene la expresiÃ³n '1+22-20-2-(1!=(0==(54>60)))==1+4878787-4878707-80-1-4+4+(1==(1==(1==(1+2-2))))'que siempre es verdadera, eliminarÃ¡ la declaraciÃ³n y Ãºnicamente se dejarÃ¡ su contenido."/>
+  <E exp="si2!=2entonces" pos="79" text="Error SemÃ¡ntico #2, En la posiciÃ³n #79, se encuentra la declaraciÃ³n 'si2!=2entonces', la cual contiene la expresiÃ³n '2!=2'que siempre es falsa, por lo que se eliminarÃ¡ su contenido."/>
+  <E exp="mover(x+4)" pos="292" text="Error SemÃ¡ntico #3, En la posiciÃ³n #292, se encuentra la declaraciÃ³n 'mover(x+4)' pero el auto puede estar apagado."/>
+ </Semantico>
+</ModuloErrores>

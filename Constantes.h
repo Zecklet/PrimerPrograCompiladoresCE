@@ -24,41 +24,33 @@
 #define kAsciiParentesisCierra 41
 
 
-#define kErrorLexicoCaracterDesconocido "Error Léxico #%d, En la línea #%d posición #%d la palabra '%s' no es una palabra permitida por lo que ha sido eliminada.\n"
-#define kErrorLexicoPalabraReservadaMayuscula "Error Léxico #%d, En la línea #%d posición #%d la palabra '%s' es una palabra reservada con letras mayúsculas, por lo que será cambiada a minúsla.\n"
+#define kErrorLexicoCaracterDesconocido "Error Léxico #%d, En la línea #%d posición #%d la palabra '%s' no es una palabra permitida por lo que ha sido eliminada."
+#define kErrorLexicoPalabraReservadaMayuscula "Error Léxico #%d, En la línea #%d posición #%d la palabra '%s' es una palabra reservada con letras mayúsculas, por lo que será cambiada a minúsla."
 
 //Errores Sintacticos
 
-#define kErrorSintacticoVariableNoValida "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' la palabra '%s' no puede ser utilizada como variable.\n"
-#define kErrorSintacticoErrorOperadorRacional "Error Sintáctico #%d, En la posición #%d, el operador racional '%s', no es un operador válido.\n"
-#define kErrorSintacticoErrorOperadorSuma "Error Sintáctico #%d, En la posición #%d, el operador de suma '%s' no es un operador válido.\n"
-#define kErrorSintacticoErrorNoSeReconoceLaPalabra "Error Sintáctico #%d, En la posición #%d, no se reconoce la palabra '%s'.\n"
-#define kErrorSintacticoErrorParentesisVacio "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' existe '()' el cual no es permitido.\n"
-#define kErrorSintacticoErrorSobraParentesis "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' sobran paréntesis.\n"
-#define kErrorSintacticoErrorTerminalNoValido "Error Sintáctico #%d, En la posición #%d, se esperaba un salto de línea pero se encontro '%s'.\n"
-#define kErrorSintacticoErrorLaVariableNoExiste "Error Sintáctico #%d, En la posición #%d, la variable '%s' no ha sido declarada.\n"
-#define kErrorSintacticoErrorNoDelimitador "Error Sintáctico #%d, En la posición #%d, se encuentra una declaración de '%s', pero se esperaba un delimitador '%s', luego de la expresion '%s'.\n"
-#define kErrorSintacticoErrorNoHayFin "Error Sintáctico #%d, En la posición #%d, se encuentra la declaración '%s', pero no hay ningún cierre '%s'.\n"
-#define kErrorSintacticoErrorNoHayIncio "Error Sintáctico #%d, En la posición #%d, se encuentra la declaración '%s', pero no hay ningún inicio de declaración '%s expresion %s'.\n"
-#define kErrorSintacticoErrorAccionInvalida "Error Sintáctico #%d, En la posición #%d, se encuentra la expresion '%s', la cual no tiene un significado lógico.\n"
-#define kErrorSemanticoErrorLaExpresionFalsa "Error Semántico #%d, En la posición #%d, se encuentra la declaración '%s', la cual contiene la expresión '%s'que siempre es falsa, por lo que se eliminará su contenido.\n"
-#define kErrorSemanticoErrorSiVerdadero "Error Semántico #%d, En la posición #%d, se encuentra la declaración '%s', la cual contiene la expresión '%s'que siempre es verdadera, eliminará la declaración y únicamente se dejará su contenido.\n"
+#define kErrorSintacticoVariableNoValida "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' la palabra '%s' no puede ser utilizada como variable."
+#define kErrorSintacticoErrorOperadorRacional "Error Sintáctico #%d, En la posición #%d, el operador racional '%s', no es un operador válido."
+#define kErrorSintacticoErrorOperadorSuma "Error Sintáctico #%d, En la posición #%d, la declaracion '%s' existe el operador de suma '%s' el cual no es un operador válido."
+#define kErrorSintacticoErrorNoSeReconoceLaPalabra "Error Sintáctico #%d, En la posición #%d, no se reconoce la palabra '%s'."
+#define kErrorSintacticoErrorParentesisVacio "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' existe '()' el cual no es permitido."
+#define kErrorSintacticoErrorSobraParentesis "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' sobran paréntesis."
+#define kErrorSintacticoErrorTerminalNoValido "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' falta un terminal."
+#define kErrorSintacticoErrorIgualdadVacia "Error Sintáctico #%d, En la posición #%d, en la expresion '%s' existe una igualdad inválida."
+#define kErrorSintacticoErrorTerminalExpresionVacia "Error Sintáctico #%d, En la posición #%d, en siguiente declaracion '%s'no existe ninguna expresion."
+#define kErrorSintacticoErrorLaVariableNoExiste "Error Sintáctico #%d, En la posición #%d, en la declaracion '%s' la variable '%s' no ha sido declarada."
+#define kErrorSintacticoErrorNoDelimitador "Error Sintáctico #%d, En la posición #%d, se encuentra una declaración de '%s', pero se esperaba un delimitador '%s', luego de la expresion '%s'."
+#define kErrorSintacticoErrorNoHayFin "Error Sintáctico #%d, En la posición #%d, se encuentra la declaración '%s', pero no hay ningún cierre '%s'."
+#define kErrorSintacticoErrorNoHayIncio "Error Sintáctico #%d, En la posición #%d, se encuentra la declaración '%s', pero no hay ningún inicio de declaración '%s expresion %s'."
+#define kErrorSintacticoErrorAccionInvalida "Error Sintáctico #%d, En la posición #%d, se encuentra la expresion '%s', la cual no tiene un significado lógico."
+#define kErrorSemanticoErrorLaExpresionFalsa "Error Semántico #%d, En la posición #%d, se encuentra la declaración '%s', la cual contiene la expresión '%s'que siempre es falsa, por lo que se eliminará su contenido."
+#define kErrorSemanticoErrorSiVerdadero "Error Semántico #%d, En la posición #%d, se encuentra la declaración '%s', la cual contiene la expresión '%s'que siempre es verdadera, eliminará la declaración y únicamente se dejará su contenido."
+#define kErrorSemanticoErrorCarroApagado "Error Semántico #%d, En la posición #%d, se encuentra la declaración '%s' pero el auto puede estar apagado."
 
 
 #define kTipoDeDatoVariable "Variable"
 #define kTipoDeDatoEtiqueta "Etiqueta"
 #define kTipoDeDatoNoDefinido "NoDefinido"
-
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* CONSTANTES_H */
 

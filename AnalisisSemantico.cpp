@@ -23,7 +23,7 @@ AnalisisSemantico::~AnalisisSemantico() {
 }
 
 void AnalisisSemantico::InicializarDatos(moduloErrores * p_moduloErrores, TablaSimbolos * p_tablaSimbolos, QList<QString> * p_listaLineas,
-        QList<QList<QString>*> * p_listaDeListasDePalabras) {
+    QList<QList<QString>*> * p_listaDeListasDePalabras, int * p_listaPosiciones) {
     this->_moduloNotificacionErrores = p_moduloErrores;
     this->_tablaDeSimbolos = p_tablaSimbolos;
     this->_listaLineas = p_listaLineas;
@@ -31,10 +31,11 @@ void AnalisisSemantico::InicializarDatos(moduloErrores * p_moduloErrores, TablaS
     this->_indiceLineaAEliminar = 0;
     this->_indiceLineaActual = 0;
     this->_listaLineasAEliminar = (int*) calloc(_listaLineas->length() + 1, sizeof (int));
+    this->_listaPosiciones = p_listaPosiciones;
 }
 
 void AnalisisSemantico::ComenzarAnalisis() {
-    _moduloNotificacionErrores->AgregarMasErroresRegistro();
+    _moduloNotificacionErrores->CrearNuevoRegistroErroresSemantico();
     RedireccionarLineas("--", "--", -1);
     RevisarVariablesSinUso();
     EscribirOutputSemantico();
@@ -66,7 +67,7 @@ void AnalisisSemantico::RedireccionarLineas(QString p_formaInicio, QString p_for
                     } else {
                         if (m_palabraActual == "mover") {
                             if (!_estadoCarro) {
-                                _moduloNotificacionErrores->RegistrarErrorSemanticoCarroApagado();
+                                _moduloNotificacionErrores->RegistrarErrorSemanticoCarroApagado(_listaPosiciones[_indiceLineaActual],this->_listaLineas->at(_indiceLineaAEliminar));
                             }
                         }
                     }
@@ -119,14 +120,14 @@ int AnalisisSemantico::EvaluarCondicionExpresion(QList<QString> * p_listaListaDe
         mCondicionSeCumple = EvaluarExpresionSinVariable(mExpresion);
         if (mCondicionSeCumple == 1) {
             if (p_listaListaDePalabras->at(0) == "si") {
-                this->_moduloNotificacionErrores->RegistrarErrorSemanticoSimpreVerdad(pListaPalabras, mExpresion);
+                this->_moduloNotificacionErrores->RegistrarErrorSemanticoSimpreVerdad(_listaPosiciones[_indiceLineaActual],pListaPalabras, mExpresion);
             }
         } else {
             if (mCondicionSeCumple == 0) {
-                this->_moduloNotificacionErrores->RegistrarErrorSemanticoNoSeUsa(pListaPalabras, mExpresion);
+                this->_moduloNotificacionErrores->RegistrarErrorSemanticoNoSeUsa(_listaPosiciones[_indiceLineaActual],pListaPalabras, mExpresion);
             } else {
                 if (p_listaListaDePalabras->at(0) == "mientras") {
-                    this->_moduloNotificacionErrores->RegistrarErrorSemanticoNoSeUsa(pListaPalabras, mExpresion);
+                    this->_moduloNotificacionErrores->RegistrarErrorSemanticoNoSeUsa(_listaPosiciones[_indiceLineaActual],pListaPalabras, mExpresion);
                 }
             }
         }

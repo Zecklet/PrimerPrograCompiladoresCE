@@ -12,7 +12,7 @@
 #include "Constantes.h"
 
 moduloErrores::moduloErrores() {
-    this->_numeroErrores = 0;
+    this->_numeroErroresSintacticos = 0;
 }
 
 moduloErrores::moduloErrores(const moduloErrores& orig) {
@@ -21,176 +21,250 @@ moduloErrores::moduloErrores(const moduloErrores& orig) {
 moduloErrores::~moduloErrores() {
 }
 
-void moduloErrores::RegistrarErrorSemanticoCarroApagado() {
-    QString m_error = "ErrorSimpreVerdad: Se intento mover el auto, pero se encuentra apagado";
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(QString p_linea, QString p_expresion) {
-    QString m_error = "ErrorSimpreVerdad: ";
-    m_error.append(p_expresion);
-    m_error.append(":");
-    m_error.append(p_linea);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-}
-
-void moduloErrores::RegistrarErrorSemanticoNoSeUsa(QString p_linea, QString p_expresion) {
-    QString m_error = "ErrorNoSeUsa: ";
-    m_error.append(p_expresion);
-    m_error.append(":");
-    m_error.append(p_linea);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-}
-
-void moduloErrores::RegistrarErrorSintacticoHaySinoSinSi(QString p_nombreVariable) {
-    QString m_error = "ErrorHaySinoSinSi: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayIncioSi(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayInicioSi: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayIncioMientras(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayIncioMientras: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayFinMientras(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayFinMientras: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayFinSi(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayFinSi: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayHaga(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayHaga: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoNoHayEntonces(QString p_nombreVariable) {
-    QString m_error = "ErrorNoHayEntonces: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoParentesisVacio(QString p_nombreVariable) {
-    QString m_error = "ErrorParentesisVacio: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoSobranParentesis(QString p_nombreVariable) {
-    QString m_error = "ErrorSobranParentesis: ";
-    m_error.append(p_nombreVariable);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoOperadorSuma(QString p_nombreVariable, QString p_expresion) {
-    QString m_error = "ErrorOperadorSuma: ";
-    m_error.append(p_nombreVariable);
-    m_error.append(":");
-    m_error.append(p_expresion);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoOperadorRacional(QString p_nombreVariable, QString p_expresion) {
-    QString m_error = "ErrorOperadorRacional: ";
-    
-    m_error.append(p_nombreVariable);
-    m_error.append(":");
-    m_error.append(p_expresion);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoVariableNoDeclarada(QString p_nombreVariable, QString p_expresion) {
-    QString m_error = "variableNoDeclarada: ";
-    m_error.append(p_nombreVariable);
-    m_error.append(":");
-    m_error.append(p_expresion);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoVariableNoValida(QString p_nombreVariable, QString p_expresion) {
-    QString m_error = "variableNoValida: ";
-    m_error.append(p_nombreVariable);
-    m_error.append(":");
-    m_error.append(p_expresion);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
-    this->_numeroErrores++;
-}
-
-void moduloErrores::RegistrarErrorSintacticoAccionInvalida(int p_posicion,QString p_expresion) {
-    this->_numeroErrores++;
+void moduloErrores::RegistrarErrorSemanticoCarroApagado(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSemanticos++;
     QString m_textoError;
-    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorAccionInvalida,_numeroErrores,p_posicion,p_expresion.toStdString().c_str());
-    QString m_error = "AccionInvalida: ";
-    m_error.append(p_expresion);
-    m_error.append('\n');
-    _archivoErrores->EscribirLinea(m_error);
+    m_textoError = m_textoError.sprintf(kErrorSemanticoErrorCarroApagado, _numeroErroresSemanticos, p_posicion, p_expresion.toStdString().c_str());
     _archivoXML->CrearNuevoElemento("E");
-    _archivoXML->CrearNodoTexto(m_textoError);
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
     _archivoXML->DevolverseAPadre();
-    
 }
 
-void moduloErrores::CrearNuevoRegistroErrores() {
-    _archivoErrores = new ManejoDeArchivosExternos;
-    _archivoErrores->CrearArchivo("MóduloErrores.txt");
+void moduloErrores::RegistrarErrorSemanticoSimpreVerdad(int p_posicion, QString p_expresion, QString p_condicion) {
+    this->_numeroErroresSemanticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSemanticoErrorSiVerdadero, _numeroErroresSemanticos, p_posicion, p_expresion.toStdString().c_str(), p_condicion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSemanticoNoSeUsa(int p_posicion, QString p_expresion, QString p_condicion) {
+    this->_numeroErroresSemanticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSemanticoErrorLaExpresionFalsa, _numeroErroresSemanticos, p_posicion, p_expresion.toStdString().c_str(), p_condicion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoHaySinoSinSi(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayIncio, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "si", "entonces");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayIncioSi(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayIncio, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "si", "entonces");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayIncioMientras(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayIncio, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "mientras", "haga");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayFinMientras(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayFin, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "fin-mientras");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayFinSi(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayFin, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "fin-si");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayHaga(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayFin, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "haga");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoNoHayEntonces(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorNoHayFin, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), "entonces");
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoParentesisVacio(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorParentesisVacio, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoSobranParentesis(int p_posicion, QString p_expresion) {
+
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorSobraParentesis, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoOperadorSuma(int p_posicion, QString p_variable, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorOperadorSuma, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), p_variable.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoOperadorRacional(int p_posicion, QString p_variable, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorOperadorSuma, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), p_variable.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoVariableNoDeclarada(int p_posicion, QString p_variable, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorLaVariableNoExiste, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), p_variable.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoVariableNoValida(int p_posicion, QString p_variable, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoVariableNoValida, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str(), p_variable.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+
+}
+
+void moduloErrores::RegistrarErrorSintacticoAccionInvalida(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorAccionInvalida, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+
+}
+
+void moduloErrores::RegistrarErrorSintacticoTerminalPerdido(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorTerminalNoValido, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoExpresionVacia(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorTerminalExpresionVacia, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::RegistrarErrorSintacticoIgualdadVacia(int p_posicion, QString p_expresion) {
+    this->_numeroErroresSintacticos++;
+    QString m_textoError;
+    m_textoError = m_textoError.sprintf(kErrorSintacticoErrorIgualdadVacia, _numeroErroresSintacticos, p_posicion, p_expresion.toStdString().c_str());
+    _archivoXML->CrearNuevoElemento("E");
+    _archivoXML->CrearAtributos("exp", p_expresion);
+    _archivoXML->CrearAtributos("pos", QString::number(p_posicion));
+    _archivoXML->CrearAtributos("text", m_textoError);
+    _archivoXML->DevolverseAPadre();
+}
+
+void moduloErrores::CrearNuevoRegistroErroresSintactico() {
     _archivoXML = new ManejoXML();
     _archivoXML->CrearNuevoArchivoXML("ModuloErrores");
-    
+    _archivoXML->CrearNuevoElemento("Sintatico");
 }
 
-void moduloErrores::AgregarMasErroresRegistro() {
-    _archivoErrores = new ManejoDeArchivosExternos;
-    _archivoErrores->AnadirTexto("MóduloErrores.txt");
+void moduloErrores::CrearNuevoRegistroErroresSemantico() {
+    _archivoXML->ColocarContendio("MóduloErrores.xml");
+    _archivoXML->CrearNuevoElemento("Semantico");
+    _numeroErroresSemanticos = 0;
 }
 
 void moduloErrores::RegistrarTerminarEscritura() {
-    _archivoErrores->CerrarArchivoEscritura();
     _archivoXML->GuardarDocumento("MóduloErrores.xml");
 }
 
-int moduloErrores::ObtenerNumeroDeErrores() {
-    return this->_numeroErrores;
+int moduloErrores::ObtenerNumeroDeErroresSintacticos() {
+    return this->_numeroErroresSintacticos;
+}
+
+int moduloErrores::ObtenerNumeroDeErroresSemanticos() {
+    return this->_numeroErroresSemanticos;
 }

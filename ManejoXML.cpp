@@ -47,14 +47,30 @@ void ManejoXML::DevolverseAPadre() {
 void ManejoXML::GuardarDocumento(QString p_nombreArchivo) {
     QFile outFile(p_nombreArchivo);
     if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug("Failed to open file for writing.");
+        qDebug("Fallo al internar guardar el archivo");
     }
     QTextStream stream(&outFile);
     stream << _documentoPadre->toString();
-    
+
     outFile.close();
 }
 
-void ManejoXML::CrearAtributos(QString n_nombre,QString n_valorAtributo){
-    _nodoActual.setAttribute(n_nombre,n_valorAtributo);
+void ManejoXML::CrearAtributos(QString n_nombre, QString n_valorAtributo) {
+    _nodoActual.setAttribute(n_nombre, n_valorAtributo);
+}
+
+void ManejoXML::ColocarContendio(QString p_nombreArchivo) {
+    QFile m_archivoEntrada(p_nombreArchivo);
+    if (!m_archivoEntrada.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug("Error al intentar abrir el archivo de lectura");
+    } else {
+        if (!_documentoPadre->setContent(&m_archivoEntrada)) {
+            m_archivoEntrada.close();
+            return;
+        }
+        m_archivoEntrada.close();
+        _raiz = _documentoPadre->firstChild().toElement();
+        _nodoActual = _raiz;
+    }
+
 }

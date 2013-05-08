@@ -19,6 +19,7 @@ public:
     ManejoXML(const ManejoXML& orig);
     virtual ~ManejoXML();
     void CrearNuevoArchivoXML(QString n_nodoRaiz);
+    void ColocarContendio(QString p_nombreArchivo);
     void CrearNuevoElemento(QString n_nuevoElemento);
     void CrearNodoTexto(QString n_nodoTexto);
     void DevolverseAPadre();

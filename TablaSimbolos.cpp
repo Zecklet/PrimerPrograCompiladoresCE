@@ -9,12 +9,15 @@
 #include "qlist.h"
 #include "TablaSimbolos.h"
 #include "stdio.h"
+#include "ManejoXML.h"
 
 
 TablaSimbolos::TablaSimbolos() {
     this->_nombresVariables = new QList<QString>;
     this->_tiposVariables = new QList<QString>;
     this->_numeroDeUsos = new QList<int>;
+    this->_variableArduino = new QList<QString>;
+    this->_numeroVariable=0;
 }
 
 TablaSimbolos::TablaSimbolos(const TablaSimbolos& orig) {
@@ -27,6 +30,10 @@ void TablaSimbolos::AgregarVariable(QString p_tipoVariable, QString p_nombreVari
     this->_nombresVariables->append(p_nombreVariable);
     this->_tiposVariables->append(p_tipoVariable);
     this->_numeroDeUsos->append(0);
+    QString m_variableTemporal = "var";
+    this->_numeroVariable++;
+    m_variableTemporal.append(QString::number(this->_numeroVariable));
+    this->_variableArduino->append(m_variableTemporal);
     
 }
 int TablaSimbolos::AgregarUsoVariable(QString p_nombreVariable){
@@ -63,4 +70,18 @@ void TablaSimbolos::ImprimirTablaSimbolos(){
 }
 int TablaSimbolos::ObtenerNumeroUsos(QString p_nombreVariable){
     return _numeroDeUsos->at(this->IndiceVariable(p_nombreVariable));
+}
+
+void TablaSimbolos::EscribirTablaXML(){
+    ManejoXML m_archivoXML;
+    m_archivoXML.CrearNuevoArchivoXML("TS");
+    int m_largo = this->_variableArduino->length();
+    for(int i = 0;i<m_largo;i++){
+        m_archivoXML.CrearNuevoElemento("N");
+        m_archivoXML.CrearAtributos("tipo",this->_tiposVariables->at(i));
+        m_archivoXML.CrearAtributos("nom",this->_nombresVariables->at(i));
+        m_archivoXML.CrearAtributos("Ard",this->_variableArduino->at(i));
+        m_archivoXML.DevolverseAPadre();
+    }
+    m_archivoXML.GuardarDocumento("TablaSimbolos.xml");
 }

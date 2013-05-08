@@ -25,10 +25,10 @@ AnalisisSintactico::~AnalisisSintactico() {
 }
 
 void AnalisisSintactico::ComenzarAnalisis() {
-    
+
     _tablaDeSimbolos = new TablaSimbolos();
     _moduloNotificacionErrores = new moduloErrores();
-    _moduloNotificacionErrores->CrearNuevoRegistroErrores();
+    _moduloNotificacionErrores->CrearNuevoRegistroErroresSintactico();
     _posicionLineaActual = 0;
     ManejoDeArchivosExternos m_archivoCodigoFuente;
     FuncionesString m_manejoString;
@@ -50,17 +50,17 @@ void AnalisisSintactico::ProduccionPrograma() {
 void AnalisisSintactico::ProduccionListaVariables() {
     int m_indiceUltimoDeclarar = 0;
     for (int i = 0; i < _listaLineas->length(); i++) {
-        if (_listaLineas->at(i).trimmed().length()>1 && _listaDeListasDePalabras->at(i)->at(0) != "declarar") {
+        if (_listaLineas->at(i).trimmed().length() > 1 && _listaDeListasDePalabras->at(i)->at(0) != "declarar") {
             m_indiceUltimoDeclarar = i;
             break;
         }
     }
     _estoyEnTipoVariable = 1;
     for (int j = 0; j < m_indiceUltimoDeclarar; j++) {
-        if(_listaLineas->at(j).trimmed().length()>1){
-                ProduccionTerminalID(_listaDeListasDePalabras->at(j)->at(1));
+        if (_listaLineas->at(j).trimmed().length() > 1) {
+            ProduccionTerminalID(_listaDeListasDePalabras->at(j)->at(1));
         }
-        
+
     }
     _estoyEnTipoVariable = 0;
     _posicionLineaActual = m_indiceUltimoDeclarar;
@@ -84,13 +84,13 @@ void AnalisisSintactico::ProduccionTerminalID(QString p_ID) {
                     _tablaDeSimbolos->AgregarVariable(kTipoDeDatoEtiqueta, p_ID);
                 } else {
                     if (_estoyEnTipoVariable == 3) {
-                        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoDeclarada(p_ID, _listaLineas->at(_posicionLineaActual).trimmed());
+                        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoDeclarada(_listaPosiciones[_posicionLineaActual], p_ID, _lineasSinEspacios->at(_posicionLineaActual));
                     }
                 }
             }
         }
     } else {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoValida(p_ID, _listaLineas->at(_posicionLineaActual).trimmed());
+        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoValida(_listaPosiciones[_posicionLineaActual], p_ID, _lineasSinEspacios->at(_posicionLineaActual));
     }
 }
 
@@ -119,7 +119,7 @@ void AnalisisSintactico::ProduccionListaDeclaraciones(int p_inicio, int p_final)
             }
         }
         if (mPilaFinales) {
-            _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayFinSi(_listaLineas->at(p_inicio).trimmed());
+            _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayFinSi(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
         } else {
             ProduccionDeclaracionSeleccion(p_inicio, p_inicio + mNumeroDeCiclos);
         }
@@ -145,7 +145,7 @@ void AnalisisSintactico::ProduccionListaDeclaraciones(int p_inicio, int p_final)
                 }
             }
             if (mPilaFinales) {
-                _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayFinMientras(_listaLineas->at(p_inicio).trimmed());
+                _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayFinMientras(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
             } else {
                 ProduccionDeclaracionIteracion(p_inicio, p_inicio + mNumeroDeCiclos);
             }
@@ -160,13 +160,13 @@ void AnalisisSintactico::ProduccionListaDeclaraciones(int p_inicio, int p_final)
                         ProduccionDeclaracionEtiqueta(p_inicio);
                     } else {
                         if (mPrimeraPalabra == "fin-si") {
-                            _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayIncioSi(_listaLineas->at(p_inicio).trimmed());
+                            _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayIncioSi(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
                         } else {
                             if (mPrimeraPalabra == "fin-mientras") {
-                                _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayIncioMientras(_listaLineas->at(p_inicio).trimmed());
+                                _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayIncioMientras(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
                             } else {
                                 if (mPrimeraPalabra == "sino") {
-                                    _moduloNotificacionErrores->RegistrarErrorSintacticoHaySinoSinSi(_listaLineas->at(p_inicio).trimmed());
+                                    _moduloNotificacionErrores->RegistrarErrorSintacticoHaySinoSinSi(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
                                 } else {
                                     ProduccionDeclaracionAsignacion(p_inicio);
                                 }
@@ -204,8 +204,8 @@ void AnalisisSintactico::ProduccionDeclaracionAsignacion(int p_indiceLinea) {
         }
     }
     if (!mExisteIgual) {
-        qDebug()<<"holla";
-        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[_posicionLineaActual],_lineasSinEspacios->at(_posicionLineaActual));
+        qDebug() << "holla";
+        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
     } else {
         ProduccionDeclaracionExpresion(pPalabra);
     }
@@ -282,31 +282,31 @@ void AnalisisSintactico::ProduccionDeclaracionAuto(int p_indiceLista) {
         QString m_termino = _listaLineas->at(p_indiceLista).section("", _listaDeListasDePalabras->at(p_indiceLista)->at(0).length() + 1, _listaLineas->at(p_indiceLista).length());
         ProduccionDeclaracionTermino(m_termino.trimmed().remove(QChar(' '), Qt::CaseInsensitive).trimmed());
     }
-    
-    if ((m_primeraPalabra == "encender" || m_primeraPalabra == "apagar") && _listaDeListasDePalabras->at(p_indiceLista)->length()>2){
-        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[_posicionLineaActual],_lineasSinEspacios->at(p_indiceLista));
+
+    if ((m_primeraPalabra == "encender" || m_primeraPalabra == "apagar") && _listaDeListasDePalabras->at(p_indiceLista)->length() > 2) {
+        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(p_indiceLista));
     }
 }
 
 void AnalisisSintactico::ProduccionDeclaracionPuenteElevadizo(int p_indiceLista) {
     if (_listaDeListasDePalabras->at(p_indiceLista)->length() > 2) {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[p_indiceLista],_lineasSinEspacios->at(p_indiceLista));
+        _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[p_indiceLista], _lineasSinEspacios->at(p_indiceLista));
     }
 }
 
 void AnalisisSintactico::ProduccionDeclaracionEstudiante(int p_indiceLista) {
     QString m_primeraPalabra = _listaDeListasDePalabras->at(p_indiceLista)->at(1);
     if (!(m_primeraPalabra == "encender" || m_primeraPalabra == "apagar")) {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoValida(m_primeraPalabra, _listaLineas->at(_posicionLineaActual).trimmed());
+        _moduloNotificacionErrores->RegistrarErrorSintacticoVariableNoValida(_listaPosiciones[_posicionLineaActual], m_primeraPalabra, _lineasSinEspacios->at(_posicionLineaActual));
     } else {
         if (_listaDeListasDePalabras->at(p_indiceLista)->length() > 3) {
-            _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[p_indiceLista],_lineasSinEspacios->at(p_indiceLista));
+            _moduloNotificacionErrores->RegistrarErrorSintacticoAccionInvalida(_listaPosiciones[p_indiceLista], _lineasSinEspacios->at(p_indiceLista));
         }
     }
 }
 
 void AnalisisSintactico::ProduccionDeclaracionTermino(QString p_expresion) {
-    if (RevisarParentesis(p_expresion.toStdString().c_str())) {
+    if (RevisarParentesis(p_expresion.toStdString().c_str()) && p_expresion.length() >= 1) {
         if (p_expresion.at(0) == '(' && p_expresion.at(p_expresion.length() - 1) == ')') {
             ProduccionDeclaracionExpresion(p_expresion.section("", 2, p_expresion.length() - 1)); // probar que sirva
         } else {
@@ -318,6 +318,10 @@ void AnalisisSintactico::ProduccionDeclaracionTermino(QString p_expresion) {
                 _estoyEnTipoVariable = 0;
             }
         }
+    } else {
+        if (p_expresion.length() == 0) {
+            _moduloNotificacionErrores->RegistrarErrorSintacticoTerminalPerdido(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
+        }
     }
 }
 
@@ -327,34 +331,46 @@ void AnalisisSintactico::ProduccionDeclaracionExpresion(QString p_expresion) {
     QString mPalabra;
     QString mOperadoRelacional;
     int i = 0, mExisteIgualdad = 0;
-    for (i; i < p_expresion.length(); i++) {
-        //    qDebug() << "ppppppppppppppppppp" << p_expresion << p_expresion.at(i) << mAbreParentesis << mPalabra << "qqqqqqqqqqqqqqqqqqqqqq";
-        if (m_manejoString.VerificacionOperadoresRacionales(p_expresion.at(i).toAscii()) && mAbreParentesis == 0) {
-            mExisteIgualdad = 1;
-            mOperadoRelacional.append(p_expresion.at(i));
-        } else {
-            if (mExisteIgualdad) {
-                ProduccionDeclaracionExpesionSuma(mPalabra);
-                mExisteIgualdad = 0;
-                if (!ProduccionDeclaracionTerminalOperadorRacional(mOperadoRelacional.toStdString().c_str())) {
-                    _moduloNotificacionErrores->RegistrarErrorSintacticoOperadorRacional(mOperadoRelacional, _listaLineas->at(_posicionLineaActual).trimmed());
-                }
-                //       qDebug() << "igualdad izquierda" << mPalabra;
-                mPalabra.clear();
-            }
-            if (p_expresion.at(i) == '(') {
-                mAbreParentesis++;
+    if (p_expresion.length() >= 1) {
+        for (i; i < p_expresion.length(); i++) {
+            //    qDebug() << "ppppppppppppppppppp" << p_expresion << p_expresion.at(i) << mAbreParentesis << mPalabra << "qqqqqqqqqqqqqqqqqqqqqq";
+            if (m_manejoString.VerificacionOperadoresRacionales(p_expresion.at(i).toAscii()) && mAbreParentesis == 0) {
+                mExisteIgualdad = 1;
+                mOperadoRelacional.append(p_expresion.at(i));
             } else {
-                if (p_expresion.at(i) == ')') {
-                    mAbreParentesis--;
+                if (mExisteIgualdad) {
+                    if (mPalabra.length() >= 1) {
+                        ProduccionDeclaracionExpesionSuma(mPalabra);
+                    } else {
+                        _moduloNotificacionErrores->RegistrarErrorSintacticoIgualdadVacia(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
+                    }
+                    mExisteIgualdad = 0;
+                    if (!ProduccionDeclaracionTerminalOperadorRacional(mOperadoRelacional.toStdString().c_str())) {
+                        _moduloNotificacionErrores->RegistrarErrorSintacticoOperadorRacional(_listaPosiciones[_posicionLineaActual], mOperadoRelacional, _lineasSinEspacios->at(_posicionLineaActual));
+                    }
+                    //       qDebug() << "igualdad izquierda" << mPalabra;
+                    mPalabra.clear();
                 }
-            }
+                if (p_expresion.at(i) == '(') {
+                    mAbreParentesis++;
+                } else {
+                    if (p_expresion.at(i) == ')') {
+                        mAbreParentesis--;
+                    }
+                }
 
-            mPalabra.append(p_expresion.at(i));
+                mPalabra.append(p_expresion.at(i));
+            }
         }
+        // qDebug() << "igualdad Derecha" << mPalabra;
+        if (mPalabra.length() >= 1) {
+            ProduccionDeclaracionExpesionSuma(mPalabra);
+        } else {
+            _moduloNotificacionErrores->RegistrarErrorSintacticoIgualdadVacia(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
+        }
+    } else {
+        _moduloNotificacionErrores->RegistrarErrorSintacticoExpresionVacia(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
     }
-    // qDebug() << "igualdad Derecha" << mPalabra;
-    ProduccionDeclaracionExpesionSuma(mPalabra);
 }
 
 void AnalisisSintactico::ProduccionDeclaracionExpesionSuma(QString p_expresion) {
@@ -388,7 +404,7 @@ void AnalisisSintactico::ProduccionDeclaracionExpesionSuma(QString p_expresion) 
             //   qDebug() << "EXPRESION DEL LADO IZQUIERDO" << p_expresion.section("", 0, i + 1) << i;
             ProduccionDeclaracionExpesionSuma(p_expresion.section("", 0, i + 1));
             if (!ProduccionDeclaracionTerminalOperadorSuma(mOperadorSuma.toStdString().c_str())) {
-                _moduloNotificacionErrores->RegistrarErrorSintacticoOperadorSuma(mOperadorSuma, _listaLineas->at(_posicionLineaActual).trimmed());
+                _moduloNotificacionErrores->RegistrarErrorSintacticoOperadorSuma(_listaPosiciones[_posicionLineaActual], mOperadorSuma, _lineasSinEspacios->at(_posicionLineaActual));
             }
             // qDebug() << "EXPRESION DEL LADO DERECHO" << p_expresion.section("", i + 3, p_expresion.length());
             ProduccionDeclaracionTermino(p_expresion.section("", i + 3, p_expresion.length()));
@@ -444,7 +460,7 @@ void AnalisisSintactico::ProduccionDeclaracionSeleccion(int p_inicio, int p_fina
         ProduccionDeclaracionExpresion(mExpresion);
         _estoyEnExpresion = false;
     } else {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayEntonces(mExpresion);
+        _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayEntonces(_listaPosiciones[_posicionLineaActual], mExpresion);
     }
     if (mExisteSINO == -1) {
         ProduccionListaDeclaraciones(p_inicio + 1, p_final - 1);
@@ -466,7 +482,7 @@ void AnalisisSintactico::ProduccionDeclaracionIteracion(int p_inicio, int p_fina
         ProduccionDeclaracionExpresion(mExpresion);
         _estoyEnExpresion = false;
     } else {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayHaga(_listaLineas->at(_posicionLineaActual).trimmed());
+        _moduloNotificacionErrores->RegistrarErrorSintacticoNoHayHaga(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
     }
     ProduccionListaDeclaraciones(p_inicio + 1, p_final - 1);
 }
@@ -482,7 +498,7 @@ bool AnalisisSintactico::RevisarParentesis(const char * pExpresion) {
             if (pExpresion[i] == ')') {
                 mAbreParentesis--;
                 if (mNumeroLetrasEnMedio == 0) {
-                    _moduloNotificacionErrores->RegistrarErrorSintacticoParentesisVacio(_listaLineas->at(_posicionLineaActual).trimmed());
+                    _moduloNotificacionErrores->RegistrarErrorSintacticoParentesisVacio(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
                     mResultado = false;
                 }
                 mNumeroLetrasEnMedio = 1;
@@ -492,7 +508,7 @@ bool AnalisisSintactico::RevisarParentesis(const char * pExpresion) {
         }
     }
     if (mAbreParentesis != 0) {
-        _moduloNotificacionErrores->RegistrarErrorSintacticoSobranParentesis(_listaLineas->at(_posicionLineaActual).trimmed());
+        _moduloNotificacionErrores->RegistrarErrorSintacticoSobranParentesis(_listaPosiciones[_posicionLineaActual], _lineasSinEspacios->at(_posicionLineaActual));
         mResultado = false;
     }
     return mResultado;
@@ -558,7 +574,7 @@ TablaSimbolos * AnalisisSintactico::ObtenerTablaDeSimbolos() {
 }
 
 QList<QString> * AnalisisSintactico::ObtenerListaLineas() {
-    return this->_listaLineas;
+    return this->_lineasSinEspacios;
 }
 
 QList<QList<QString>*> * AnalisisSintactico::ObtenerListaListasPalabras() {
@@ -571,13 +587,17 @@ void AnalisisSintactico::SacarIndicesPosiciones() {
     QString m_temporal;
     m_temporal = _listaLineas->at(0).trimmed();
     m_temporal.remove(QChar(' '), Qt::CaseInsensitive);
-    _listaPosiciones[0] =0;
+    _listaPosiciones[0] = 0;
     int m_largo = _listaLineas->length();
     for (int i = 1; i <= m_largo; i++) {
-        m_temporal = _listaLineas->at(i-1).trimmed();
+        m_temporal = _listaLineas->at(i - 1).trimmed();
         m_temporal.remove(QChar(' '), Qt::CaseInsensitive);
-        _listaPosiciones[i] = m_temporal.length() + _listaPosiciones[i-1];
+        _listaPosiciones[i] = m_temporal.length() + _listaPosiciones[i - 1];
         _lineasSinEspacios->append(m_temporal);
-        qDebug()<<m_temporal;
+        qDebug() << m_temporal;
     }
+}
+
+int * AnalisisSintactico::ObtenerListaPosiciones() {
+    return _listaPosiciones;
 }

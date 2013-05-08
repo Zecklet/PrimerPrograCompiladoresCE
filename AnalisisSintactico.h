@@ -24,7 +24,8 @@ public:
     TablaSimbolos * ObtenerTablaDeSimbolos();
     QList<QString> * ObtenerListaLineas();
     QList<QList<QString>*> * ObtenerListaListasPalabras();
-
+    int * ObtenerListaPosiciones();
+    
 private:
     moduloErrores * _moduloNotificacionErrores;
     TablaSimbolos * _tablaDeSimbolos;
